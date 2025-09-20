@@ -1,0 +1,98 @@
+# Industrial Sensor Data Streaming Configuration
+# This file contains default settings for the streaming data generator
+
+streaming:
+  # Basic streaming settings
+  rate: 1.0                    # Hz - data points per second
+  duration: null               # seconds, null for infinite streaming
+  machines: null               # null for all machines, or list: ["MACHINE_001", "MACHINE_002"]
+  
+  # Output configuration
+  output_mode: "console"       # console, file, api, kafka
+  output_path: null            # file path for file mode
+  api_url: null                # API endpoint for api mode
+  kafka_topic: null            # Kafka topic for kafka mode
+  kafka_bootstrap_servers:     # Kafka bootstrap servers
+    - "localhost:9092"
+  
+  # Data generation settings
+  include_anomalies: true      # Enable anomaly injection
+  anomaly_injection_rate: 0.01 # Probability per data point
+  maintenance_simulation: true # Enable maintenance simulation
+  maintenance_interval: 3600   # seconds between maintenance events
+  
+  # Data format settings
+  data_format: "json"          # json, csv
+  include_derived_features: true # Include calculated features
+  include_anomaly_labels: false # Include anomaly labels (false for student projects, true for instructor testing)
+  
+  # Interactive settings
+  interactive_mode: false      # Enable interactive controls
+  verbose: true               # Enable verbose output
+
+# Preset configurations for different use cases
+presets:
+  # Development and testing
+  development:
+    rate: 0.5
+    duration: 300              # 5 minutes
+    output_mode: "console"
+    interactive_mode: true
+    include_anomalies: true
+    anomaly_injection_rate: 0.05
+    include_anomaly_labels: false  # Clean data for student projects
+  
+  # Production simulation
+  production:
+    rate: 10.0
+    duration: null             # infinite
+    output_mode: "kafka"
+    kafka_topic: "sensor-data"
+    include_anomalies: true
+    anomaly_injection_rate: 0.001
+    maintenance_simulation: true
+    include_anomaly_labels: false  # Clean data for student projects
+  
+  # API testing
+  api_test:
+    rate: 2.0
+    duration: 600              # 10 minutes
+    output_mode: "api"
+    api_url: "http://localhost:8000/api/data"
+    include_anomalies: true
+    anomaly_injection_rate: 0.02
+    include_anomaly_labels: false  # Clean data for student projects
+  
+  # File logging
+  file_logging:
+    rate: 1.0
+    duration: null
+    output_mode: "file"
+    output_path: "data/streaming_data.json"
+    data_format: "json"
+    include_anomalies: true
+    anomaly_injection_rate: 0.01
+    include_anomaly_labels: false  # Clean data for student projects
+  
+  # Clean data (no anomalies)
+  clean_data:
+    rate: 5.0
+    duration: null
+    output_mode: "file"
+    output_path: "data/clean_streaming_data.csv"
+    data_format: "csv"
+    include_anomalies: false
+    include_anomaly_labels: false
+    include_derived_features: true
+  
+  # Instructor testing (with labels for grading)
+  instructor_testing:
+    rate: 1.0
+    duration: 600              # 10 minutes
+    output_mode: "file"
+    output_path: "data/instructor_test_data.csv"
+    data_format: "csv"
+    include_anomalies: true
+    anomaly_injection_rate: 0.05
+    include_anomaly_labels: true  # Include labels for instructor grading
+    include_derived_features: true

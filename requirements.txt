@@ -1,0 +1,38 @@
+# Core data science
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+scipy
+
+# Notebooks
+jupyter
+ipykernel
+
+# Optional visualization
+plotly
+
+# Model persistence / utilities
+joblib
+
+# Deep learning (choose this set or swap for TensorFlow in Part 2)
+torch
+torchvision
+torchaudio
+
+# API
+fastapi
+uvicorn
+pydantic
+python-multipart
+
+# Logging, config, and HTTP
+requests
+pyyaml
+
+# Experiment tracking
+mlflow
+
+# Streaming / messaging if you later test Kafka
+kafka-python
